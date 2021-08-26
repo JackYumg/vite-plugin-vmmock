@@ -1,8 +1,9 @@
 {
-    "name": "vite-plugin-mock",
+    "name": "vite-plugin-vmmock",
     "version": "1.0.0",
     "description": "测试数据生成",
     "main": "index.js",
+    "types": "index.d.ts",
     "author": "jackyumg",
     "license": "MIT",
     "private": false,

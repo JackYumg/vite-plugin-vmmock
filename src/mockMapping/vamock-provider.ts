@@ -1,6 +1,5 @@
 import path from 'path';
-import { ResolvedConfig, normalizePath } from 'vite';
-import type { Plugin } from 'vite';
+import { ResolvedConfig, normalizePath, PluginOption } from 'vite';
 import { fileExists } from "../util/index";
 import { VAMockOptionIn } from '../types';
 import { createMockServer, requestMiddleware } from './createMockServer';
@@ -9,8 +8,7 @@ function getDefaultPath(supportTs = true) {
     return path.resolve(process.cwd(), `src/main.${supportTs ? 'ts' : 'js'}`);
 }
 
-export const createMockService = function (option: VAMockOptionIn): Plugin {
-
+export const createMockService = function (option: VAMockOptionIn): PluginOption {
     let defaultPath = getDefaultPath();
     if (!fileExists(defaultPath)) {
         defaultPath = getDefaultPath(false);

@@ -22,9 +22,9 @@ function requestCall(req: Request) {
 function responseCall(rep: any) {
     const { url, method } = rep.config;
     const methodType = ''.toLocaleUpperCase.call(method);
-    console.log(`%c[👽->${methodType}->Response]:${url}`, "background:rgba(133,108,217,1);color:#fff", { Response: rep });
     const api = baseOption.api || '';
     const apiRep = new RegExp(`^${api}`);
+    console.log(`%c[👽->${methodType}->Response]:${url}`, "background:rgba(133,108,217,1);color:#fff", { Response: rep });
     if (apiRep.test(url)) {
         return rep.data;
     }
@@ -42,14 +42,16 @@ function createAxiosLogger(option: LoggerOption) {
         ...option,
     };
     return {
+        axios: {},
         install: function (app: any, opt: any) {
+            this.axios = opt;
             this.init();
         },
         init: async function () {
-            const e: any = await import('axios');
+            const e = this.axios;
             if (e && option.showLogger) {
-                e.interceptors.request.use(requestCall, errorCall);
-                e.interceptors.response.use(responseCall, errorCall)
+                (e as any).interceptors.request.use(requestCall, errorCall);
+                (e as any).interceptors.response.use(responseCall, errorCall)
             } else if (!e) {
                 console.log('未找到axios');
             }

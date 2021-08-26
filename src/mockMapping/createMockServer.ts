@@ -63,6 +63,7 @@ export async function requestMiddleware(opt: VAMockOptionIn) {
             }
             const e = pathToRegexp(item.url.replace(opt.basePath, ''));
             const matched = e.test(reqUrl);
+            console.log(reqUrl , item.url , opt.basePath , e , matched);
             return matched;
         });
         if (matchRequest) {
@@ -155,7 +156,6 @@ async function getMockConfig(opt: VAMockOptionIn) {
     const { ignore, configPath, logger } = opt;
 
     let ret: MockMethod[] = [];
-
     if (configPath && fs.existsSync(absConfigPath)) {
         logger && loggerOutput(`load mock data from`, absConfigPath);
         ret = await resolveModule(absConfigPath);
@@ -225,7 +225,7 @@ function getPath(opt: VAMockOptionIn) {
     const { mockPath, configPath } = opt;
     const cwd = process.cwd();
     const absMockPath = path.join(cwd, mockPath || '');
-    const absConfigPath = path.join(cwd, configPath || '');
+    const absConfigPath = path.join(cwd, mockPath || '', configPath || '');
     return {
         absMockPath,
         absConfigPath,
@@ -272,7 +272,7 @@ export async function loadConfigFromBundledFile(fileName: string, bundledCode: s
             extensions[extension] = defaultLoader;
         }
     } catch (error) {
-        // console.error(error);
+        console.error(error);
     }
 
     return config;

@@ -1,3 +1,2 @@
-export * from './logger';
-export * from './mockMapping';
-export * from './mockMapping/vamock-provider';
+export { createMockLogger } from './logger/vamock-logger';
+export { createMockService } from './mockMapping/vamock-provider';

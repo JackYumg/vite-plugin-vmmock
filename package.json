@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-vmmock",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "测试数据生成",
   "main": "index.js",
   "author": "jackyumg",
@@ -25,7 +25,7 @@
     "build": "npm run clean && cpy ./src/package.json ./dist/  && tsup src/index.ts --dts --format cjs,esm && tsc -p tsconfig.app.json",
     "clean": "rimraf dist && rimraf es",
     "build:prod": "rollup --config rollup.config.js",
-    "publish": "cd /dist && npm publish"
+    "apublish": "npm run build && cd dist && npm publish"
   },
   "devDependencies": {
     "@types/connect": "^3.4.35",
